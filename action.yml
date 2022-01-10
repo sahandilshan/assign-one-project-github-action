@@ -14,8 +14,8 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.project }}
-    - ${{ inputs.column_name }}
+    # - ${{ inputs.project }}
+    - ${{ inputs.who-to-greet }}
 
 branding:
   icon: 'box'
