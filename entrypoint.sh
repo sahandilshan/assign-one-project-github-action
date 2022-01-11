@@ -14,10 +14,10 @@ ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
 ISSUE_LABELS=$(jq -r '.issue.labels' < "$GITHUB_EVENT_PATH")
 echo "LABELS: $ISSUE_LABELS"
 BUG_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("bug")) ]')
-echo "TEST::: $TEST"
+echo "TEST::: $BUG_LABEL"
 echo "Issue Id: $ISSUE_ID"
 
-if [ ! -z "$BUG_LABEL" ]; then
+if [ -z "$BUG_LABEL" ]; then
     echo "Issue does not have the 'bug' label. Hence ignoring this issue."
     exit 0
 fi
