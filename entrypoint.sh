@@ -39,7 +39,7 @@ if [ -z "$COLUMN_ID" ]; then
 fi
 
 # Add this issue to the project column
-    curl -s -X POST -u "$GITHUB_ACTOR:$TOKEN" --retry 3 \
+    curl -s -X POST -u "$GITHUB_ACTOR:$GITHUB_TOKEN" --retry 3 \
      -H 'Accept: application/vnd.github.v3+json' \
      -d "{\"content_type\": \"Issue\", \"content_id\": $ISSUE_ID}" \
      "https://api.github.com/projects/columns/$COLUMN_ID/cards"
