@@ -8,5 +8,7 @@ echo "Github Action Path: $GITHUB_ACTION_PATH"
 echo "GitHub Token: $GITHUB_TOKEN"
 echo "GitHub Actor: $GITHUB_ACTOR"
 echo "GitHub Event Path $GITHUB_EVENT_PATH"
+ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
+echo "Issue Id: $ISSUE_ID"
 time=$(date)
 echo ::set-output name=time::$time
