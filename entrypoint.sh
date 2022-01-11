@@ -11,7 +11,8 @@ echo "GitHub Actor: $GITHUB_ACTOR"
 echo "GitHub Event Path $GITHUB_EVENT_PATH"
 echo "Owner: $GITHUB_REPOSITORY"
 ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
-echo < "$GITHUB_EVENT_PATH"
+TEST=$(jq -r '.issue' < "$GITHUB_EVENT_PATH")
+echo "$TEST"
 echo "Issue Id: $ISSUE_ID"
 
 
