@@ -13,9 +13,13 @@ echo "Issue Id: $ISSUE_ID"
 echo "Owner: $GITHUB_REPOSITORY"
 
 PROJECT_URL=$2
-PROJECT_JSON=$(curl -i -u sahandilshan:$GITHUB_TOKEN --location --request GET 'https://api.github.com/repos/sahandilshan/sample-repo/projects' \
+PROJECT_JSON=$(curl -i -u $GITHUB_ACTOR:$GITHUB_TOKEN --location --request GET 'https://api.github.com/repos/sahandilshan/sample-repo/projects' \
 --header 'Accept: application/vnd.github.v3+json')
+PROJECT_ID=$(echo "$_PROJECTS" | jq -r ".[] | select(.html_url == \"$PROJECT_URL\").id")
 echo "$PROJECT_JSON"
+echo "========="
+echo "$PROJECT_ID"
+
 
 
 time=$(date)
