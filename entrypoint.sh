@@ -16,6 +16,7 @@ echo "Owner: $GITHUB_REPOSITORY"
 PROJECT_URL=INPUT_PROJECT
 PROJECT_JSON=$(curl -s -X GET -u $GITHUB_ACTOR:$GITHUB_TOKEN "https://api.github.com/repos/$GITHUB_REPOSITORY/projects" \
 --header 'Accept: application/vnd.github.inertia-preview+json')
+echo "Project URL: $PROJECT_URL"
 PROJECT_ID=$(echo "$PROJECT_JSON" | jq -r ".[] | select(.html_url == \"$PROJECT_URL\").id")
 echo "$PROJECT_JSON"
 echo "========="
