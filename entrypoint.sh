@@ -14,6 +14,7 @@ echo "Issue Id: $ISSUE_ID"
 echo "Owner: $GITHUB_REPOSITORY"
 
 PROJECT_URL=$INPUT_PROJECT
+COLUMN_NAME=$INPUT_COLUMN_NAME
 PROJECT_JSON=$(curl -s -X GET -u $GITHUB_ACTOR:$GITHUB_TOKEN "https://api.github.com/repos/$GITHUB_REPOSITORY/projects" \
 --header 'Accept: application/vnd.github.v3+json')
 echo "Project URL: $PROJECT_URL"
@@ -27,8 +28,14 @@ if [ -z "$PROJECT_ID" ]; then
     exit 1
 fi
 
-Co
+COLUMNS_JSON=$(curl -s -X GET -u $GITHUB_ACTOR:$GITHUB_TOKEN "https://api.github.com/projects/$PROJECT_ID/columns" \
+--header 'Accept: application/vnd.github.v3+json')
+COLUMN_ID=$(echo "$COLUMNS_JSON" | jq -r ".[] | select(.name == \"$COLUMN_NAME\").id")
 
+if [ -z "$COLUMN_ID" ]; then
+    echo "Unable to retrieve column id, Please check the given column_name."
+    exit 1
+fi
 
 
 time=$(date)
