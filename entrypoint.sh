@@ -12,9 +12,14 @@ echo "GitHub Event Path $GITHUB_EVENT_PATH"
 echo "Owner: $GITHUB_REPOSITORY"
 ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
 ISSUE_LABELS=$(jq -r '.issue.labels' < "$GITHUB_EVENT_PATH")
-TEST=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("bug")) ]')
+BUG_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("bug")) ]')
 echo "TEST::: $TEST"
 echo "Issue Id: $ISSUE_ID"
+
+if [ ! -z "$BUG_LABEL" ]; then
+    echo "Issue does not have the 'bug' label. Hence ignoring this issue."
+    exit 0
+fi
 
 
 ISSUE_JSON=$(curl -s -X GET -u $GITHUB_ACTOR:$GITHUB_TOKEN "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$ISSUE_ID" \
