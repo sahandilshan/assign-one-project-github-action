@@ -12,6 +12,7 @@ echo "GitHub Event Path $GITHUB_EVENT_PATH"
 echo "Owner: $GITHUB_REPOSITORY"
 ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
 ISSUE_LABELS=$(jq -r '.issue.labels' < "$GITHUB_EVENT_PATH")
+echo "LABELS: $ISSUE_LABELS"
 BUG_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("bug")) ]')
 echo "TEST::: $TEST"
 echo "Issue Id: $ISSUE_ID"
