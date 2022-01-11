@@ -17,7 +17,7 @@ BUG_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("bug"
 echo "TEST::: $BUG_LABEL"
 echo "Issue Id: $ISSUE_ID"
 
-if [ -z "$BUG_LABEL" ]; then
+if [ ${#ISSUE_LABELS[@]} -eq 0 ]; then
     echo "Issue does not have the 'bug' label. Hence ignoring this issue."
     exit 0
 fi
