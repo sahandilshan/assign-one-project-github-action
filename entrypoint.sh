@@ -11,8 +11,9 @@ echo "GitHub Actor: $GITHUB_ACTOR"
 echo "GitHub Event Path $GITHUB_EVENT_PATH"
 echo "Owner: $GITHUB_REPOSITORY"
 ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
-TEST=$(jq '.issue | contains(["bug"])' < "$GITHUB_EVENT_PATH")
-echo "$TEST"
+ISSUE_LABELS=$(jq -r '.issue.labels' < "$GITHUB_EVENT_PATH")
+TEST="$ISSUE_LABELS" | jq -c '[ .[] | select( .genre | contains("house")) ]'
+echo "TEST::: $TEST"
 echo "Issue Id: $ISSUE_ID"
 
 
