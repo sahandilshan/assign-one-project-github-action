@@ -13,7 +13,7 @@ ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
 echo "Issue Id: $ISSUE_ID"
 echo "Owner: $GITHUB_REPOSITORY"
 
-PROJECT_URL=INPUT_PROJECT
+PROJECT_URL=$INPUT_PROJECT
 PROJECT_JSON=$(curl -s -X GET -u $GITHUB_ACTOR:$GITHUB_TOKEN "https://api.github.com/repos/$GITHUB_REPOSITORY/projects" \
 --header 'Accept: application/vnd.github.inertia-preview+json')
 echo "Project URL: $PROJECT_URL"
