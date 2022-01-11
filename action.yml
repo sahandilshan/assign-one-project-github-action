@@ -9,9 +9,12 @@ inputs:
   # column_name:
   #   description: 'The column name of the project, defaults to "To do" for issues and "In progress" for pull requests.'
   #   required: false
-  who-to-greet:
-    description: 'Test'
-    required: false
+  project:
+    description: 'Project id'
+    required: true
+  column_name:
+    description: 'Column name'
+    required: true
 
 runs:
   using: 'docker'
