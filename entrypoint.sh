@@ -1,7 +1,7 @@
 #!/bin/sh -l
 
-echo "Hello $1"
-echo "Project URL: $2"
+echo "Project URL: $INPUT_PROJECT" #$1
+echo "Column: $INPUT_COLUMN_NAME" #$2
 echo "Event Type: $GITHUB_EVENT_NAME"
 echo "Github Action: $GITHUB_ACTIONS"
 echo "Github Action: $GITHUB_ACTION"
@@ -13,7 +13,7 @@ ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
 echo "Issue Id: $ISSUE_ID"
 echo "Owner: $GITHUB_REPOSITORY"
 
-PROJECT_URL=$2
+PROJECT_URL=INPUT_PROJECT
 PROJECT_JSON=$(curl -i -u $GITHUB_ACTOR:$GITHUB_TOKEN --location --request GET "https://api.github.com/repos/$GITHUB_REPOSITORY/projects" \
 --header 'Accept: application/vnd.github.v3+json')
 PROJECT_ID=$(echo "$PROJECT_JSON" | jq -r ".[] | select(.html_url == \"$PROJECT_URL\").id")
