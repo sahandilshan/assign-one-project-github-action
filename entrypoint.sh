@@ -11,7 +11,12 @@ echo "GitHub Actor: $GITHUB_ACTOR"
 echo "GitHub Event Path $GITHUB_EVENT_PATH"
 echo "Owner: $GITHUB_REPOSITORY"
 ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
+echo $GITHUB_EVENT_PATH | jq '.'
 echo "Issue Id: $ISSUE_ID"
+
+
+ISSUE_JSON=$(curl -s -X GET -u $GITHUB_ACTOR:$GITHUB_TOKEN "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$ISSUE_ID" \
+--header 'Accept: application/vnd.github.v3+json')
 
 
 PROJECT_URL=$INPUT_PROJECT
